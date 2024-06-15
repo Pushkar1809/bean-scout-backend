@@ -1,8 +1,3 @@
-```
-npm install
-npm run dev
-```
+# Bean Scout APIs
 
-```
-open http://localhost:3000
-```
+Node.js APIs for __Bean Scout__ client.
