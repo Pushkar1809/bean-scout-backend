@@ -10,8 +10,8 @@ const shopSchema = new Schema<Shop>(
 		status: { type: Boolean, required: true },
 		reviewCount: { type: Number, required: true },
 		rating: { type: Number, required: true },
-		created_at: { type: Date, required: true },
-		updated_at: { type: Date, required: true },
+		createdAt: { type: Date, required: true },
+		updatedAt: { type: Date, required: true },
 	},
 	{
 		timestamps: true,

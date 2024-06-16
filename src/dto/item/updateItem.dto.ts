@@ -5,4 +5,5 @@ export interface UpdateItemDto {
 	status?: boolean;
 	reviewCount?: number;
 	rating?: number;
+	categoryId?: string;
 }

@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 export interface Item {
-  id: number;
   name: string;
   price: number;
   description: string;
@@ -9,7 +8,8 @@ export interface Item {
   reviewCount: number;
   rating: number;
   imageUrl: string;
+  categoryId: mongoose.Types.ObjectId;
   shopId: mongoose.Types.ObjectId;
-  created_at: Date;
-  updated_at: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }

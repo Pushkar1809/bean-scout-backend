@@ -10,8 +10,8 @@ export class ShopController {
 	async create(createShop: CreateShopDto): Promise<ResponseShopDto> {
 		const shop = new ShopModel({
 			...createShop,
-			created_at: new Date(),
-			updated_at: new Date(),
+			createdAt: new Date(),
+			updatedAt: new Date(),
 		});
 		const shopRes = await shop.save();
 		return shopRes;
@@ -22,8 +22,8 @@ export class ShopController {
 	): Promise<ResponseShopDto[]> {
 		const createShops = data.map((shop) => ({
 			...shop,
-			created_at: new Date(),
-			updated_at: new Date(),
+			createdAt: new Date(),
+			updatedAt: new Date(),
 		}))
  		const shops = await ShopModel.insertMany(createShops);
 		return shops;
@@ -49,7 +49,7 @@ export class ShopController {
 		}
 		const shop = await ShopModel.findByIdAndUpdate(
 			id,
-			{ ...existingShop, ...updateShop, updated_at: new Date() },
+			{ ...existingShop, ...updateShop, updatedAt: new Date() },
 			{ new: true },
 		);
 		return shop;

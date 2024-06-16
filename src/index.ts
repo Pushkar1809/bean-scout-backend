@@ -1,8 +1,9 @@
 import fastify, { FastifyInstance } from "fastify";
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 import { shopRoutes } from "./routes/shop.routes";
 import { itemRoutes } from "./routes/item.routes";
 import "dotenv/config";
+import { categoryRoutes } from "./routes/category.routes";
 
 const app: FastifyInstance = fastify({
 	logger: {
@@ -32,6 +33,7 @@ app.get("/", async (_, reply) => {
 
 shopRoutes(app);
 itemRoutes(app);
+categoryRoutes(app);
 
 const start = async () => {
 	try {

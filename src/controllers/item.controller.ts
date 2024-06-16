@@ -10,8 +10,8 @@ export class ItemController {
 	async create(createShop: CreateItemDto): Promise<ResponseItemDto> {
 		const item = new ItemModel({
 			...createShop,
-			created_at: new Date(),
-			updated_at: new Date(),
+			createdAt: new Date(),
+			updatedAt: new Date(),
 		});
 		const itemRes = await item.save();
 		return itemRes;
@@ -25,8 +25,8 @@ export class ItemController {
 	async createMultiple(data: CreateItemDto[]): Promise<ResponseItemDto[]> {
 		const createItems = data.map((item) => ({
 			...item,
-			created_at: new Date(),
-			updated_at: new Date(),
+			createdAt: new Date(),
+			updatedAt: new Date(),
 		}));
 		const items = await ItemModel.insertMany(createItems);
 		return items;
@@ -52,7 +52,7 @@ export class ItemController {
 		}
 		const item = await ItemModel.findByIdAndUpdate(
 			id,
-			{ ...existingItem, ...updateItem, updated_at: new Date() },
+			{ ...existingItem, ...updateItem, updatedAt: new Date() },
 			{ new: true },
 		);
 		return item;

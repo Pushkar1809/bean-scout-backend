@@ -9,4 +9,5 @@ export interface CreateItemDto {
   rating: number;
   imageUrl: string;
   shopId: mongoose.Types.ObjectId;
+  categoryId: mongoose.Types.ObjectId;
 }

@@ -10,8 +10,9 @@ const itemSchema = new Schema<Item>(
 		reviewCount: { type: Number, required: true },
 		rating: { type: Number, required: true },
 		shopId: { type: Schema.Types.ObjectId, ref: "Shop", required: true },
-		created_at: { type: Date, required: true },
-		updated_at: { type: Date, required: true },
+		categoryId: { type: Schema.Types.ObjectId, ref: "Category", required: true },
+		createdAt: { type: Date, required: true },
+		updatedAt: { type: Date, required: true },
 	},
 	{ timestamps: true },
 );
