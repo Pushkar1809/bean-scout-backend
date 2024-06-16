@@ -5,41 +5,58 @@ import { ShopModel } from "../models/shop.model";
 import { UpdateItemDto } from '../dto/item/updateItem.dto';
 
 export class ShopController {
-  constructor() {}
+	constructor() {}
 
-  async create(createShop: CreateShopDto): Promise<ResponseShopDto> {
-    const shop = new ShopModel({
-      name: createShop.name,
-      address: createShop.address,
-      email: createShop.email,
-      description: createShop.description,
-      status: createShop.status,
-      reviewCount: createShop.reviewCount,
-      rating: createShop.rating,
-      created_at: new Date(),
-      updated_at: new Date(),
-    });
-    const shopRes = await shop.save();
-    return shopRes;
-  }
+	async create(createShop: CreateShopDto): Promise<ResponseShopDto> {
+		const shop = new ShopModel({
+			...createShop,
+			created_at: new Date(),
+			updated_at: new Date(),
+		});
+		const shopRes = await shop.save();
+		return shopRes;
+	}
 
-  async findAll(): Promise<ResponseShopDto[]> {
-    const shops = await ShopModel.find();
-    return shops;
-  }
+	async createMultiple(
+		data: CreateShopDto[],
+	): Promise<ResponseShopDto[]> {
+		const createShops = data.map((shop) => ({
+			...shop,
+			created_at: new Date(),
+			updated_at: new Date(),
+		}))
+ 		const shops = await ShopModel.insertMany(createShops);
+		return shops;
+	}
 
-  async findOne(id: Types.ObjectId): Promise<ResponseShopDto | null>{
-    const shop = await ShopModel.findOne({ _id: id });
-    return shop;
-  }
+	async findAll(): Promise<ResponseShopDto[]> {
+		const shops = await ShopModel.find();
+		return shops;
+	}
 
-  async update(id: Types.ObjectId, updateShop: UpdateItemDto): Promise<ResponseShopDto | null> {
-    const shop = await ShopModel.findByIdAndUpdate(id, {...updateShop, updated_at: new Date()}, { new: true });
-    return shop;
-  }
+	async findOne(id: Types.ObjectId): Promise<ResponseShopDto | null> {
+		const shop = await ShopModel.findOne({ _id: id });
+		return shop;
+	}
 
-  async remove(id: Types.ObjectId): Promise<string | null> {
-    const shop = await ShopModel.findByIdAndDelete(id);
-    return shop ? shop._id.toString() : null;
-  }
+	async update(
+		id: Types.ObjectId,
+		updateShop: UpdateItemDto,
+	): Promise<ResponseShopDto | null> {
+		const existingShop = await ShopModel.findOne({ _id: id });
+		if (!existingShop) {
+			return null;
+		}
+		const shop = await ShopModel.findByIdAndUpdate(
+			id,
+			{ ...existingShop, ...updateShop, updated_at: new Date() },
+			{ new: true },
+		);
+		return shop;
+	}
+
+	async remove(id: Types.ObjectId): Promise<string | null> {
+		const shop = await ShopModel.findByIdAndDelete(id);
+		return shop ? shop._id.toString() : null;
+	}
 }

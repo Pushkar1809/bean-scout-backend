@@ -9,18 +9,27 @@ export class ItemController {
 
 	async create(createShop: CreateItemDto): Promise<ResponseItemDto> {
 		const item = new ItemModel({
-			name: createShop.name,
-			price: createShop.price,
-			description: createShop.description,
-			status: createShop.status,
-			reviewCount: createShop.reviewCount,
-			rating: createShop.rating,
-			shopId: createShop.shopId,
+			...createShop,
 			created_at: new Date(),
 			updated_at: new Date(),
 		});
 		const itemRes = await item.save();
 		return itemRes;
+	}
+
+	async findByShopId(shopId: Types.ObjectId): Promise<ResponseItemDto[]> {
+		const items = await ItemModel.find({ shopId });
+		return items;
+	}
+
+	async createMultiple(data: CreateItemDto[]): Promise<ResponseItemDto[]> {
+		const createItems = data.map((item) => ({
+			...item,
+			created_at: new Date(),
+			updated_at: new Date(),
+		}));
+		const items = await ItemModel.insertMany(createItems);
+		return items;
 	}
 
 	async findAll(): Promise<ResponseItemDto[]> {
@@ -33,8 +42,19 @@ export class ItemController {
 		return item;
 	}
 
-	async update(id: Types.ObjectId, updateItem: UpdateItemDto): Promise<ResponseItemDto | null> {
-		const item = await ItemModel.findByIdAndUpdate(id, {...updateItem, updated_at: new Date()}, { new: true });
+	async update(
+		id: Types.ObjectId,
+		updateItem: UpdateItemDto,
+	): Promise<ResponseItemDto | null> {
+		const existingItem = await ItemModel.findOne({ _id: id });
+		if (!existingItem) {
+			return null;
+		}
+		const item = await ItemModel.findByIdAndUpdate(
+			id,
+			{ ...existingItem, ...updateItem, updated_at: new Date() },
+			{ new: true },
+		);
 		return item;
 	}
 

@@ -7,5 +7,6 @@ export interface CreateItemDto {
   status: boolean;
   reviewCount: number;
   rating: number;
+  imageUrl: string;
   shopId: mongoose.Types.ObjectId;
 }

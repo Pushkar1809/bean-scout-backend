@@ -2,6 +2,7 @@ import { FastifyInstance, FastifyRequest } from "fastify";
 import { ShopController } from "../controllers/shop.controller";
 import { Types } from "mongoose";
 import { CreateShopDto } from "../dto/shop/createShop.dto";
+import { ResponseShopDto } from "../dto/shop/ResponseShop.dto";
 
 export const shopRoutes = (app: FastifyInstance) => {
 	const shopController = new ShopController();
@@ -21,6 +22,16 @@ export const shopRoutes = (app: FastifyInstance) => {
 			} else {
 				reply.code(200).send({ data: shop });
 			}
+		},
+	);
+
+	app.post(
+		"/shops/multiple",
+		async (request: FastifyRequest<{ Body: CreateShopDto[] }>, reply) => {
+			const items: ResponseShopDto[] = await shopController.createMultiple(
+				request.body,
+			);
+			reply.code(201).send({ data: items });
 		},
 	);
 

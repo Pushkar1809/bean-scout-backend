@@ -9,6 +9,7 @@ export interface Shop {
   status: boolean;
   reviewCount: number;
   rating: number;
+  imageUrl: string;
   created_at: Date;
   updated_at: Date;
 }

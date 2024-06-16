@@ -6,4 +6,5 @@ export interface CreateShopDto {
   status: boolean;
   reviewCount: number;
   rating: number;
+  imageUrl: string;
 }

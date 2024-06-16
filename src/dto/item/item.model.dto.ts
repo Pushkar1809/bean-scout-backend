@@ -8,6 +8,7 @@ export interface Item {
   status: boolean;
   reviewCount: number;
   rating: number;
+  imageUrl: string;
   shopId: mongoose.Types.ObjectId;
   created_at: Date;
   updated_at: Date;
