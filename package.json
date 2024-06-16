@@ -4,6 +4,7 @@
 		"dev": "tsx watch src/index.ts"
 	},
 	"dependencies": {
+		"dotenv": "^16.4.5",
 		"fastify": "^4.28.0",
 		"mongoose": "^8.4.1",
 		"pino-pretty": "^11.2.1"

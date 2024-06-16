@@ -1,7 +1,8 @@
 import fastify, { FastifyInstance } from "fastify";
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 import { shopRoutes } from "./routes/shop.routes";
 import { itemRoutes } from "./routes/item.routes";
+import "dotenv/config";
 
 const app: FastifyInstance = fastify({
 	logger: {
@@ -15,13 +16,11 @@ const app: FastifyInstance = fastify({
 });
 
 try {
-	// const mongodbUrl = process.env.MONGODB_URL;
-	// if (!mongodbUrl) {
-	//   throw new Error("Failed to connect to MongoDB: MONGODB_URL is not defined.");
-	// }
-	mongoose.connect(
-		"mongodb+srv://admin:O1OXBkutVVuQS3Bi@shopsanditems.yr8knph.mongodb.net/?retryWrites=true&w=majority&appName=ShopsAndItems",
-	);
+	const mongodbUrl = process.env.MONGODB_URI;
+	if (!mongodbUrl) {
+	  throw new Error("Failed to connect to MongoDB: MONGODB_URL is not defined.");
+	}
+	mongoose.connect(mongodbUrl);
 } catch (error) {
 	app.log.error(error);
 	process.exit(1);
