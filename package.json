@@ -1,14 +1,15 @@
 {
-  "name": "bean-scout-backend",
-  "scripts": {
-    "dev": "tsx watch src/index.ts"
-  },
-  "dependencies": {
-    "@hono/node-server": "^1.11.3",
-    "hono": "^4.4.6"
-  },
-  "devDependencies": {
-    "@types/node": "^20.11.17",
-    "tsx": "^4.7.1"
-  }
+	"name": "bean-scout-backend",
+	"scripts": {
+		"dev": "tsx watch src/index.ts"
+	},
+	"dependencies": {
+		"fastify": "^4.28.0",
+		"mongoose": "^8.4.1",
+		"pino-pretty": "^11.2.1"
+	},
+	"devDependencies": {
+		"@types/node": "^20.11.17",
+		"tsx": "^4.7.1"
+	}
 }

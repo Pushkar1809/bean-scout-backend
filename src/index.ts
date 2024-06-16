@@ -1,16 +1,49 @@
-import { serve } from '@hono/node-server'
-import { Hono } from 'hono'
+import fastify, { FastifyInstance } from "fastify";
+import mongoose from "mongoose";
+import { shopRoutes } from "./routes/shop.routes";
+import { itemRoutes } from "./routes/item.routes";
 
-const app = new Hono()
+const app: FastifyInstance = fastify({
+	logger: {
+		transport: {
+			target: "pino-pretty",
+			options: {
+				colorize: true,
+			},
+		},
+	},
+});
 
-app.get('/', (c) => {
-  return c.text('☕️ Bean Scout APIs')
-})
+try {
+	// const mongodbUrl = process.env.MONGODB_URL;
+	// if (!mongodbUrl) {
+	//   throw new Error("Failed to connect to MongoDB: MONGODB_URL is not defined.");
+	// }
+	mongoose.connect(
+		"mongodb+srv://admin:O1OXBkutVVuQS3Bi@shopsanditems.yr8knph.mongodb.net/?retryWrites=true&w=majority&appName=ShopsAndItems",
+	);
+} catch (error) {
+	app.log.error(error);
+	process.exit(1);
+}
 
-const port = Number(process.env.PORT || "8080")
-console.log(`Server is running on port ${port}`)
+app.get("/", async (request, reply) => {
+	return { message: "Welcome to the Shop API" };
+});
 
-serve({
-  fetch: app.fetch,
-  port
-})
+shopRoutes(app);
+itemRoutes(app);
+
+const start = async () => {
+	try {
+		await app.listen({ port: Number(process.env.PORT || "8080") });
+		const address = app.server.address();
+		const port = typeof address === "string" ? address : address?.port;
+		app.log.info(`Server listening at port: ${port}`);
+	} catch (error) {
+		app.log.error(error);
+		process.exit(1);
+	}
+};
+
+start();
