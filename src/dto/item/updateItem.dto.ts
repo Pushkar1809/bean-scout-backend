@@ -6,4 +6,5 @@ export interface UpdateItemDto {
 	reviewCount?: number;
 	rating?: number;
 	categoryId?: string;
+	imageUrl?: string;
 }

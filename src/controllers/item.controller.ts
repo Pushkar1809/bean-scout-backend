@@ -65,7 +65,18 @@ export class ItemController {
 		}
 		const item = await ItemModel.findByIdAndUpdate(
 			id,
-			{ ...existingItem, ...updateItem, updatedAt: new Date() },
+			{ 
+				name: updateItem?.name || existingItem.name,
+				price: updateItem?.price || existingItem.price,
+				description: updateItem?.description || existingItem.description,
+				status: updateItem?.status || existingItem.status,
+				reviewCount: updateItem?.reviewCount || existingItem.reviewCount,
+				rating: updateItem?.rating || existingItem.rating,
+				imageUrl: updateItem?.imageUrl || existingItem.imageUrl,
+				categoryId: updateItem?.categoryId || existingItem.categoryId,
+				createdAt: existingItem.createdAt,
+				updatedAt: new Date(),
+			 },
 			{ new: true },
 		);
 		return item;

@@ -9,6 +9,7 @@ const itemSchema = new Schema<Item>(
 		status: { type: Boolean, required: true },
 		reviewCount: { type: Number, required: true },
 		rating: { type: Number, required: true },
+		imageUrl: { type: String, required: true },
 		shopId: { type: Schema.Types.ObjectId, ref: "Shop", required: true },
 		categoryId: { type: Schema.Types.ObjectId, ref: "Category", required: true },
 		createdAt: { type: Date, required: true },
