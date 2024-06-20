@@ -4,6 +4,9 @@ import { shopRoutes } from "./routes/shop.routes";
 import { itemRoutes } from "./routes/item.routes";
 import "dotenv/config";
 import { categoryRoutes } from "./routes/category.routes";
+import cors from "@fastify/cors";
+import { userRoutes } from "./routes/user.routes";
+
 
 const app: FastifyInstance = fastify({
 	logger: {
@@ -15,6 +18,8 @@ const app: FastifyInstance = fastify({
 		},
 	},
 });
+
+app.register(cors);
 
 try {
 	const mongodbUrl = process.env.MONGODB_URI;
@@ -34,6 +39,7 @@ app.get("/", async (_, reply) => {
 shopRoutes(app);
 itemRoutes(app);
 categoryRoutes(app);
+userRoutes(app);
 
 const start = async () => {
 	try {

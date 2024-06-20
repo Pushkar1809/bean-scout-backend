@@ -8,22 +8,54 @@ import { UpdateItemDto } from "../dto/item/updateItem.dto";
 export const itemRoutes = (app: FastifyInstance) => {
 	const itemController = new ItemController();
 
-	app.get("/items", async (_, reply) => {
-		const items: ResponseItemDto[] = await itemController.findAll();
-		reply.code(200).send({ data: items });
-	});
+	app.get(
+		"/items",
+		async (
+			request: FastifyRequest<{ Querystring: { categoryId: string } }>,
+			reply,
+		) => {
+			if (!!request.query.categoryId) {
+				console.log(request.query.categoryId);
+				const categoryId = new Types.ObjectId(
+				request.query.categoryId as string,
+				);
+				const items: ResponseItemDto[] = await itemController.findAllByCategory(categoryId);
+				reply.code(200).send({ data: items });
+			} else {
+				const items: ResponseItemDto[] = await itemController.findAll();
+				reply.code(200).send({ data: items });
+			}
+		},
+	);
 
 	app.get(
 		"/items/shop/:shopId",
 		async (
-			request: FastifyRequest<{ Params: { shopId: string } }>,
+			request: FastifyRequest<{
+				Params: { shopId: string };
+				Querystring: { categoryId: string };
+			}>,
 			reply: FastifyReply,
 		) => {
 			const shopId = new Types.ObjectId(request.params.shopId);
-			const items: ResponseItemDto[] = await itemController.findByShopId(
-				shopId,
-			);
-			reply.code(200).send({ data: items });
+			if (!!request.query.categoryId) {
+				console.log(request.query.categoryId);
+				const categoryId = new Types.ObjectId(
+					request.query.categoryId as string,
+				);
+				const items: ResponseItemDto[] = await itemController.findByCategoryIdAndShopId(
+					shopId,
+					categoryId,
+				);
+				reply.code(200).send({ data: items });
+			} else {
+				const items: ResponseItemDto[] = await itemController.findByShopId(
+					shopId,
+				);
+				reply.code(200).send({ data: items });
+			}
+			
+			
 		},
 	);
 

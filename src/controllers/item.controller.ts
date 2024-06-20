@@ -37,6 +37,19 @@ export class ItemController {
 		return items;
 	}
 
+	async findAllByCategory(categoryId: Types.ObjectId): Promise<ResponseItemDto[]> {
+		const items = await ItemModel.find({ categoryId });
+		return items;
+	}
+
+	async findByCategoryIdAndShopId(
+		shopId: Types.ObjectId,
+		categoryId: Types.ObjectId,
+	): Promise<ResponseItemDto[]> {
+		const items = await ItemModel.find({ shopId, categoryId });
+		return items;
+	}
+
 	async findOne(id: Types.ObjectId): Promise<ResponseItemDto | null> {
 		const item = await ItemModel.findOne({ _id: id });
 		return item;

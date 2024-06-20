@@ -18,4 +18,9 @@ export class CategoryController {
     const categories = await CategoryModel.find();
     return categories;
   }
+
+  async findById (id: string): Promise<ResponseCategoryDto | null> {
+    const category = await CategoryModel.findById(id);
+    return category;
+  }
 }

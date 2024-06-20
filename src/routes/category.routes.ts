@@ -10,6 +10,11 @@ export const categoryRoutes = (app: FastifyInstance) => {
     reply.code(200).send({ data: categories });
   });
 
+  app.get("/categories/:id", async (request: FastifyRequest<{Params: {id: string}}>, reply) => {
+    const category = await categoryController.findById(request.params.id);
+    reply.code(200).send({ data: category });
+  });
+
   app.post("/categories", async (request: FastifyRequest<{Body: Category}>, reply) => {
     const category = await categoryController.create(request.body);
     reply.code(201).send({ data: category });
