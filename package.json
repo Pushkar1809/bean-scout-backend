@@ -1,7 +1,10 @@
 {
+	"type": "module",
 	"name": "bean-scout-backend",
 	"scripts": {
-		"dev": "tsx watch src/index.ts"
+		"dev": "tsx watch src/index.ts",
+		"build": "tsc",
+		"start": "node dist/index.js"
 	},
 	"dependencies": {
 		"@fastify/cors": "^9.0.1",
@@ -10,7 +13,9 @@
 		"fastify": "^4.28.0",
 		"google-auth-library": "^9.11.0",
 		"mongoose": "^8.4.1",
-		"pino-pretty": "^11.2.1"
+		"pino-pretty": "^11.2.1",
+		"serverless-http": "^3.2.0",
+		"typescript": "^5.5.2"
 	},
 	"devDependencies": {
 		"@types/node": "^20.11.17",

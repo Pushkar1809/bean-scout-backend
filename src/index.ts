@@ -7,7 +7,6 @@ import { categoryRoutes } from "./routes/category.routes";
 import cors from "@fastify/cors";
 import { userRoutes } from "./routes/user.routes";
 
-
 const app: FastifyInstance = fastify({
 	logger: {
 		transport: {
