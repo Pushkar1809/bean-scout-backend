@@ -37,7 +37,7 @@ importers:
         version: 5.5.2
     devDependencies:
       '@types/node':
-        specifier: ^20.11.17
+        specifier: ^20.14.7
         version: 20.14.7
       tsx:
         specifier: ^4.7.1

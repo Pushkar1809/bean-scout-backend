@@ -1,10 +1,9 @@
 {
-	"type": "module",
 	"name": "bean-scout-backend",
 	"scripts": {
 		"dev": "tsx watch src/index.ts",
 		"build": "pnpm i @types/node --save-dev && tsc",
-		"start": "node dist/index.js"
+		"start": "pnpm build && node dist/index.js"
 	},
 	"dependencies": {
 		"@fastify/cors": "^9.0.1",
@@ -18,7 +17,7 @@
 		"typescript": "^5.5.2"
 	},
 	"devDependencies": {
-		"@types/node": "^20.11.17",
+		"@types/node": "^20.14.7",
 		"tsx": "^4.7.1"
 	}
 }
