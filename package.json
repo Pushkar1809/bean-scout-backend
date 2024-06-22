@@ -3,7 +3,7 @@
 	"name": "bean-scout-backend",
 	"scripts": {
 		"dev": "tsx watch src/index.ts",
-		"build": "tsc",
+		"build": "pnpm i @types/node --save-dev && tsc",
 		"start": "node dist/index.js"
 	},
 	"dependencies": {
