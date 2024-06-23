@@ -6,7 +6,7 @@ Node.js APIs for __Bean Scout__ client.
 
 1. Clone the repo. (This is the backend server code repo)
 2. run `pnpm i` or `npm i`
-3. add environment variables shared with you `.env` file
+3. copy the contents of `env.txt` file shared with you `.env` file
 4. run `pnpm dev` or `npm run dev`
 
 ## Tech Used
